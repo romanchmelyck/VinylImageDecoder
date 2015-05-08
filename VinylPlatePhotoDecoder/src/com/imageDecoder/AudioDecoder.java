@@ -1,5 +1,4 @@
 package com.imageDecoder;
-//package com.imageDecoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
