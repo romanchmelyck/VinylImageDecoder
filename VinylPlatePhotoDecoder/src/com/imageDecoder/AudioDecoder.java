@@ -13,35 +13,34 @@ public class AudioDecoder {
 	
 	private byte[] inputArray;
 	
-		public void makeAudioFile(String imageName){
+	public void makeAudioFile(String imageName){
 		
-			ImageProcessor processor = new ImageProcessor();
-			String outputName = imageName.substring(0, 2);
-			AudioInputStream ais = null;
-				try {
+		ImageProcessor processor = new ImageProcessor();
+		String outputName = imageName.substring(6, 9);
+		AudioInputStream ais = null;
+			try {
 	
-						inputArray = processor.colorExtract(imageName);
-						int rate =(int) (inputArray.length/18);
-						String path = System.getProperty("user.home") + "\\Desktop\\";
+				inputArray = processor.colorExtract(imageName);
+				int rate =(int) (inputArray.length/18);
+				String path = System.getProperty("user.home") + "\\Desktop\\";
 							
-						AudioFormat   format= new AudioFormat(rate,8,1,true,false);
-						ais = new AudioInputStream(new ByteArrayInputStream(inputArray),format ,inputArray.length);
-						AudioSystem.write(ais, AudioFileFormat.Type.WAVE ,new File(path + outputName + ".wav"));
-						System.out.println("Audio file is ready for listening! Location  "+ path + outputName + ".wav");
+				AudioFormat   format= new AudioFormat(rate,8,1,true,false);
+				ais = new AudioInputStream(new ByteArrayInputStream(inputArray),format ,inputArray.length);
+				AudioSystem.write(ais, AudioFileFormat.Type.WAVE ,new File(path + outputName + ".wav"));
+				System.out.println("Audio file is ready for listening! Location  "+ path + outputName + ".wav");
+				
+				} catch (IOException e) { 
 					
-					} catch (IOException e) { 
+					System.err.println("Cannot create or save a file!");
+					e.printStackTrace();
 					
-						System.err.println("Cannot create or save a file!");
-						e.printStackTrace();
-					
-					} finally {
-									try {
-										ais.close();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-					}
+				} finally {
+							try {
+								ais.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+				}
 		}
 }	
 	
